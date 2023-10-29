@@ -1,0 +1,399 @@
+!DOCTYPE html>
+<html>
+
+<head>
+    <title>Live Video Feed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #44a08d, #093637);
+            color: #fff;
+            margin: 0;
+        }
+
+        .head {
+            color: #fff;
+            font-size: 24px;
+            margin: 0;
+            padding: 10px;
+        }
+
+        .intro {
+            margin-top: 150px;
+        }
+
+        .intro h1 {
+            font-size: 36px;
+            margin: 10px 0;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        img {
+            width: 100%;
+            max-width: 640px;
+            border: 1px solid #333;
+            background-color: #000;
+        }
+
+
+
+        .labels-container {
+            margin-top: 20px;
+        }
+
+        #gestureLabel {
+            font-size: 18px;
+        }
+
+        .key-fea {
+            margin-top: 3rem;
+            background-color: #3498db;
+            color: #fff;
+            height: 420px;
+            width: 600px;
+            border-radius: 13px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            padding: 50px;
+            margin: 0 auto;
+            transition: 0.3s;
+        }
+
+        .key-fea:hover {
+            height: 424px;
+            width: 604px;
+        }
+
+        .feature {
+            margin: 20px;
+        }
+
+        .feature h2 {
+            font-size: 24px;
+        }
+
+        .feature p {
+            font-size: 18px;
+        }
+
+       .footer {
+       margin-top:20rem;
+            background-color: black;
+            padding: 30px 0;
+        }
+
+        .footer h5 {
+            color: #FFFFFF;
+            font-size: 20px;
+        }
+
+        .footer p, .footer a {
+            color: #CCCCCC;
+            font-size: 16px;
+        }
+
+        .bg-color{
+            background-color: #000;
+        }
+
+
+        .nav-item a:hover{
+            background-color: #44a08d;
+            border-radius:10px;
+            transition:0.1s;
+          ;
+        }
+
+
+        .custom-button {
+            background-color:white;
+            color:black;
+            border:solid;
+             border-color:green;
+            border-radius: 5px;
+            padding: 7px 20px;
+            font-size: 18px;
+
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+            margin-right:9rem;
+
+        }
+
+        .custom-button:hover {
+            background-color: green;
+            transform: scale(1.05); /* Add a slight zoom effect on hover */
+        }
+
+        /* Custom Secondary Button Styles */
+        .custom-secondary-button {
+            background-color: white;
+            color: black;
+            border: solid;
+            border-radius: 5px;
+            padding: 7px 20px;
+            font-size: 18px;
+             border-color: yellow;
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+
+
+        }
+
+        .custom-secondary-button:hover {
+            background-color: yellow;
+            transform: scale(1.05);
+        }
+
+         .custom-tertiary-button {
+
+            background-color: white;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            padding: 7px 20px;
+            font-size: 18px;
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+             border:solid red;
+             margin-left:9rem;
+        }
+
+        .custom-tertiary-button:hover {
+            background-color: red;
+            transform: scale(1.05);
+        }
+
+          /* Custom Typewriter-Style Heading */
+        .typewriter-heading {
+            font-family: 'Courier New', monospace; /* Use a monospace font for the typewriter effect */
+            overflow: hidden; /* Hide overflowing text */
+            border-right: 0.15em solid #000; /* Add a blinking cursor (black) */
+            white-space: nowrap; /* Keep the text on one line */
+            margin: 0 auto; /* Center the heading */
+            letter-spacing:; /* Adjust letter spacing for typewriter effect */
+            animation: typing 5s steps(30), blink-caret .75s step-end ;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+            from, to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-color  fixed-top" >
+        <div class="container" id="home">
+            <a class=" logo navbar-brand text-white fw-bold" href="#">SignTalk Solutions</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+                aria-label="Toggle navigation" onclick="bg-change()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavId">
+                <ul class="navbar-nav ms-auto mt-2 mt-lg-0 px-2">
+                    <li class="nav-item">
+                        <a class="nav-link active px-3 fw-bold  text-light" href="#home" aria-current="page">HOME
+                            <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active  px-3 fw-bold text-light" href="#about" aria-current="page">ABOUT
+                            <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active px-3 fw-bold  text-light" href="#features"
+                            aria-current="page">FEATURES
+                            <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active px-3 fw-bold text-light" href="#contact" aria-current="page">CONTACT
+                            US<span class="visually-hidden">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+   <div class="intro" id="about" >
+        <h1> <b>Welcome to Hand Sign Detection</b></h1>
+        <h3 class="typewriter-heading">
+            Experience real-time hand sign detection and recognition
+        </h3><br>
+
+    </div>
+    <hr>
+    <div style="margin-right:10px;">
+         <p style="font-size:20px;  font-family: 'Courier New', monospace; ">
+            At SignTalk Solutions, we are dedicated to revolutionizing communication for Deaf and Hard of Hearing individuals. Our mission is to bridge the communication gap between the Deaf community and the hearing world. We've developed cutting-edge technology for Sign Language Recognition, enabling seamless and effective interaction. With a deep understanding of the unique linguistic properties of sign languages, we are committed to making communication more accessible and inclusive, transforming the lives of those who rely on sign language for expression and connection.
+        </p>
+    </div>
+
+
+
+    <div class="container">
+        <div class="video-container">
+            <img src="{{ url_for('video_feed') }}" width="640" height="480">
+        </div>
+    </div>
+
+    <div class="btn-container">
+        <button type="button" class=" custom-button " onclick="startVideo()">Start</button>
+        <button  type="button" class="custom-secondary-button" onclick="stopVideo()">Stop</button>
+        <button type="button" class="custom-tertiary-button " onclick="exitVideo()">Exit</button>
+    </div>
+
+    <br><br><br>
+
+    <div class="key-fea" >
+        <h2>Key Features</h2>
+        <div class="feature">
+            <h2>Real-time Detection</h2>
+            <p>Instantly recognize hand signs as you make them.</p>
+        </div>
+        <div class="feature">
+            <h2>Easy to Use</h2>
+            <p>User-friendly interface for seamless interaction.</p>
+        </div>
+        <div class="feature"  id="features">
+            <h2>High Accuracy</h2>
+            <p>Precision in hand sign recognition for various gestures.</p>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="key-fea" style="background-color:#BBC557; width:900px">
+        <h2> Features</h2>
+        <div class="feature">
+             <h2>User-friendly Integration</h2>
+            <p>User-friendly interface for easy adoption in google meet and zoom call.</p>
+        </div>
+        <div class="feature">
+             <h2>Education and Training</h2>
+            <p>Benefite educational institutions, Bussinesses,and goverment agencies.</p>
+        </div>
+        <div class="feature">
+            <h2>Global Collaboration</h2>
+            <p>Promote International Collaboration by bridging language barriers</p>
+        </div>
+
+    </div>
+     <footer class="footer bg-color text-white" >
+        <div class="container" id="contact">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <h5>Contact Information</h5>
+                    <p>Email: amhaske187@gmail.com</p>
+                    <p>Phone: +1 (123) 456-7890</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Gallery</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+             <p>&copy; Signs Talk Solutions</p>
+        </div>
+    </footer>
+
+    <script>
+        function startVideo() {
+            fetch('/start_video')
+                .then(response => {
+                    if (response.ok) {
+                        // The video feed is started
+                    } else {
+                        console.error('Failed to start the video feed');
+                    }
+                });
+        }
+
+        function stopVideo() {
+            fetch('/stop_video')
+                .then(response => {
+                    if (response.ok) {
+                        // The video feed is stopped
+                    } else {
+                        console.error('Failed to stop the video feed');
+                    }
+                });
+        }
+
+        function exitVideo() {
+            fetch('/exit_video')
+                .then(response => {
+                    if (response.ok) {
+                        // The video feed is stopped
+                    } else {
+                        console.error('Failed to exit the video feed');
+                    }
+                });
+        }
+
+   document.addEventListener('DOMContentLoaded', function() {
+        $("a").on('click', function(event) {
+            if (this.hash !== "") {
+                event.preventDefault();
+                var hash = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function() {
+                    window.location.hash = hash;
+                });
+            }
+        });
+    });
+
+</script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
